@@ -33,7 +33,7 @@ abstract class GameProvider with ChangeNotifier {
     this.players = players;
     discards.clear();
     turn = TurnModel(players: players, currentPlayer: players.first);
-    setupBoard();
+    await setupBoard();
     notifyListeners();
   }
 
@@ -45,23 +45,14 @@ abstract class GameProvider with ChangeNotifier {
     bool allowAnyTime = false,
   }) async {
     if (currentDeck == null) return;
-    if (!allowAnyTime && !canDrawCard) return;
+    if (!allowAnyTime) return;
 
     final draw = await _service.drawCards(currentDeck!, count: count);
     player.addCards(draw.cards);
 
-    turn.drawCount += count;
     currentDeck!.remaining = draw.remaining;
 
     notifyListeners();
-  }
-
-  bool get canDrawCard {
-    return turn.drawCount < 1;
-  }
-
-  bool get canEndTurn {
-    return turn.drawCount > 0;
   }
 
   void endTurn() {
@@ -78,6 +69,8 @@ abstract class GameProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+  bool get canEndTurn => true;
 
   Future<void> botTurn() async {
     await Future.delayed(const Duration(milliseconds: 500));

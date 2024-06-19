@@ -1,4 +1,4 @@
-import 'package:flutter_truco/components/playing_card.dart';
+import 'package:flutter_truco/components/stack_of_cards.dart';
 import 'package:flutter_truco/constants.dart';
 import 'package:flutter_truco/models/card_model.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +14,12 @@ class DiscardPile extends StatelessWidget {
     var width = cardWidth * size;
     var height = cardHeight * size;
     return Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black45, width: 2),
-        ),
-        child: Stack(
-          children: cards
-              .map((card) => PlayingCard(
-                    card: card,
-                    visible: true,
-                  ))
-              .toList(),
-        ));
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black45, width: 2),
+      ),
+      child: StackOfCards(cards: cards, size: size),
+    );
   }
 }

@@ -25,6 +25,7 @@ class PlayerHand extends StatelessWidget {
         .map((card) => PlayingCard(
               card: card,
               size: size,
+              margin: const EdgeInsets.all(4),
               visible: player.isHuman,
               onPlayCard: onPlayCard,
             ))

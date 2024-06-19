@@ -4,6 +4,7 @@ const cardHeight = 314 / 2;
 const gsLastSuit = 'GS_LAST_SUIT';
 const gsLastValue = 'GS_LAST_VALUE';
 const gsRoundValue = 'GS_ROUND_VALUE';
+const gsRoundPlays = 'GS_ROUND_PLAYS';
 
 const cardValues = [
   '4',

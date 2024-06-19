@@ -12,6 +12,8 @@ class TrucoGameProvider extends GameProvider {
     await drawFlipCard();
   }
 
+  bool get canCallRaise => gameState[gsRoundValue] < 12;
+
   @override
   bool canPlayCard(CardModel card) {
     var canPlay = false;
@@ -29,7 +31,7 @@ class TrucoGameProvider extends GameProvider {
   }
 
   @override
-  bool get canEndTurn => turn.drawCount > 0 || turn.actionCount > 0;
+  bool get canEndTurn => turn.actionCount > 0;
 
   @override
   Future<void> botTurn() async {
@@ -92,6 +94,21 @@ class TrucoGameProvider extends GameProvider {
       case 9:
         gameState[gsRoundValue] = 12;
         break;
+    }
+  }
+
+  String getNextRoundValue() {
+    switch (gameState[gsRoundValue]) {
+      case 1:
+        return 'Truco';
+      case 3:
+        return 'Seis';
+      case 6:
+        return 'Nove';
+      case 9:
+        return 'Doze';
+      default:
+        return 'Truco';
     }
   }
 }

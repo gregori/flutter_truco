@@ -10,6 +10,7 @@ class PlayingCard extends StatelessWidget {
     required this.card,
     this.size = 1,
     this.visible = false,
+    this.margin,
     this.onPlayCard,
   });
 
@@ -17,6 +18,7 @@ class PlayingCard extends StatelessWidget {
   final double size;
   final bool visible;
   final Function(CardModel)? onPlayCard;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class PlayingCard extends StatelessWidget {
       },
       child: CardFrame(
         color: Colors.blueGrey,
+        margin: margin,
         size: size,
         child: _buildCard(),
       ),

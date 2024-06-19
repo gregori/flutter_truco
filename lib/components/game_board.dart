@@ -1,7 +1,8 @@
 import 'package:flutter_truco/components/card_list.dart';
-import 'package:flutter_truco/components/deck_pile.dart';
 import 'package:flutter_truco/components/discard_pile.dart';
 import 'package:flutter_truco/components/new_game_button.dart';
+import 'package:flutter_truco/components/player_hand.dart';
+import 'package:flutter_truco/components/playing_card.dart';
 import 'package:flutter_truco/providers/truco_game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,33 +19,45 @@ class GameBoard extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: CardList(
+                child: PlayerHand(
                   player: model.players[1],
+                  size: 0.8,
+                  onPlayCard: (card) {},
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: PlayerHand(
+                  player: model.players[2],
+                  size: 0.8,
+                  vertical: true,
                   onPlayCard: (card) {},
                 ),
               ),
               Align(
                 alignment: Alignment.center,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            await model.drawCards(model.currentPlayer);
-                          },
-                          child: DeckPile(
-                            remaining: model.currentDeck!.remaining,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        DiscardPile(cards: model.discards),
-                      ],
+                    DiscardPile(
+                      cards: model.discards.toList(),
+                      size: 0.8,
                     ),
-                    if (model.bottomWidget != null) model.bottomWidget!
+                    PlayingCard(
+                      card: model.flipCard!,
+                      visible: true,
+                      size: 0.8,
+                    ),
                   ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: PlayerHand(
+                  player: model.players[3],
+                  size: 0.8,
+                  vertical: true,
+                  onPlayCard: (card) {},
                 ),
               ),
               Align(
@@ -59,18 +72,19 @@ class GameBoard extends StatelessWidget {
                         children: [
                           if (model.currentPlayer == model.players[0])
                             ElevatedButton(
-                              onPressed: model.canEndTurn
+                              onPressed: model.canCallRaise
                                   ? () {
-                                      model.endTurn();
+                                      model.raiseRoundValue();
                                     }
                                   : null,
-                              child: const Text('End Turn'),
+                              child: Text(model.getNextRoundValue()),
                             ),
                         ],
                       ),
                     ),
-                    CardList(
+                    PlayerHand(
                       player: model.players[0],
+                      size: 0.8,
                       onPlayCard: (card) {
                         model.playCard(player: model.players[0], card: card);
                       },

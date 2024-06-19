@@ -19,6 +19,8 @@ class NewGameButton extends StatelessWidget {
         final players = [
           PlayerModel(name: 'Rodrigo', isHuman: true, team: Team.team1),
           PlayerModel(name: 'Bot', isHuman: false, team: Team.team2),
+          PlayerModel(name: 'Bot1', isHuman: false, team: Team.team1),
+          PlayerModel(name: 'Bot2', isHuman: false, team: Team.team2),
         ];
         await _provider.newHand(players);
       },

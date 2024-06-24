@@ -95,14 +95,8 @@ abstract class GameProvider with ChangeNotifier {
     return turn.currentPlayer;
   }
 
-  bool canPlayCard(CardModel card) {
-    return turn.actionCount < 1;
-  }
-
   Future<void> playCard(
       {required PlayerModel player, required CardModel card}) async {
-    if (!canPlayCard(card)) return;
-
     player.removeCard(card);
     discards.add(card);
 

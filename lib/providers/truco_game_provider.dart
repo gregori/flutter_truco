@@ -15,22 +15,6 @@ class TrucoGameProvider extends GameProvider {
   bool get canCallRaise => gameState[gsRoundValue] < 12;
 
   @override
-  bool canPlayCard(CardModel card) {
-    var canPlay = false;
-
-    if (gameState[gsLastSuit] == null || gameState[gsLastValue] == null) {
-      return false;
-    }
-
-    if (gameState[gsLastSuit] == card.suit) canPlay = true;
-    if (gameState[gsLastValue] == card.faceValue) canPlay = true;
-
-    if (card.faceValue == '8') canPlay = true;
-
-    return canPlay;
-  }
-
-  @override
   bool get canEndTurn => turn.actionCount > 0;
 
   @override
@@ -39,20 +23,16 @@ class TrucoGameProvider extends GameProvider {
     await Future.delayed(const Duration(milliseconds: 500));
 
     for (final c in p.cards) {
-      if (canPlayCard(c)) {
-        await playCard(player: p, card: c);
-        endTurn();
-        return;
-      }
+      await playCard(player: p, card: c);
+      endTurn();
+      return;
     }
 
     await Future.delayed(const Duration(milliseconds: 500));
     await drawCards(p);
     await Future.delayed(const Duration(milliseconds: 500));
 
-    if (canPlayCard(p.cards.last)) {
-      await playCard(player: p, card: p.cards.last);
-    }
+    await playCard(player: p, card: p.cards.last);
 
     endTurn();
   }

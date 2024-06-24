@@ -1,4 +1,3 @@
-import 'package:flutter_truco/components/card_list.dart';
 import 'package:flutter_truco/components/discard_pile.dart';
 import 'package:flutter_truco/components/new_game_button.dart';
 import 'package:flutter_truco/components/player_hand.dart';
@@ -14,7 +13,7 @@ class GameBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TrucoGameProvider>(
       builder: (context, model, child) {
-        if (model.currentDeck != null) {
+        if (model.flipCard != null) {
           return Stack(
             children: [
               Align(

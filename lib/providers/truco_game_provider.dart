@@ -5,6 +5,8 @@ import 'package:flutter_truco/providers/game_provider.dart';
 class TrucoGameProvider extends GameProvider {
   @override
   Future<void> setupBoard() async {
+    gameState[gsRoundValue] = 1;
+
     for (var p in players) {
       await drawCards(p, count: 3, allowAnyTime: true);
     }

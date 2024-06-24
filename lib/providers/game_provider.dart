@@ -105,7 +105,7 @@ abstract class GameProvider with ChangeNotifier {
     setLastPlayed(card);
 
     await applyTrumpCardValue(card);
-
+    endTurn();
     notifyListeners();
   }
 

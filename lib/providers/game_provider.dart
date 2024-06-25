@@ -72,24 +72,7 @@ abstract class GameProvider with ChangeNotifier {
 
   bool get canEndTurn => true;
 
-  Future<void> botTurn() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    await drawCards(turn.currentPlayer);
-    await Future.delayed(const Duration(milliseconds: 500));
-
-    if (turn.currentPlayer.cards.isNotEmpty) {
-      await Future.delayed(const Duration(milliseconds: 1000));
-
-      playCard(
-        player: turn.currentPlayer,
-        card: turn.currentPlayer.cards.first,
-      );
-    }
-
-    if (canEndTurn) {
-      endTurn();
-    }
-  }
+  Future<void> botTurn() async {}
 
   PlayerModel get currentPlayer {
     return turn.currentPlayer;

@@ -22,21 +22,12 @@ class TrucoGameProvider extends GameProvider {
   @override
   Future<void> botTurn() async {
     final p = turn.currentPlayer;
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 1000));
 
     for (final c in p.cards) {
       await playCard(player: p, card: c);
-      endTurn();
       return;
     }
-
-    await Future.delayed(const Duration(milliseconds: 500));
-    await drawCards(p);
-    await Future.delayed(const Duration(milliseconds: 500));
-
-    await playCard(player: p, card: p.cards.last);
-
-    endTurn();
   }
 
   @override
